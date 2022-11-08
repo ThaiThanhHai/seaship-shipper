@@ -1,0 +1,19 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 390px;
+
+    .arrow {    
+        width: 15%;
+    }
+
+    .label {
+        width: 85%;
+        text-align: center;
+    }   
+
+    .notifications {
+        width: 15%;
+    }
+}

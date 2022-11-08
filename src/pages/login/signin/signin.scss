@@ -1,0 +1,51 @@
+.signin {
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    width: 390px;
+    height: 844px;
+    flex-direction: column;
+    .top {
+        width: 95%;
+        height: 60%;
+        position: relative;
+        text-align: center;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+        .phone {
+            width: 90%;
+            
+        }
+    }
+
+    .bottom {
+        width: 95%;
+        height: 40%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        padding-top: 40px;
+
+        .btn-login {
+            background-color: #007041;
+            color: #fff;
+            width: 90%;
+            height: 50px;
+            border-radius: 30px;
+            font-size: 20px;
+        }
+
+        .btn-logout {
+            background-color: #C7C7C7;
+            color: #333;
+            width: 90%;
+            height: 50px;
+            border-radius: 30px;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    }
+}
