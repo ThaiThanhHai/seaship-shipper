@@ -6,7 +6,7 @@ const Navbar = ({ label }) => {
   return (
     <div className="navbar">
       <ArrowBack className="arrow"></ArrowBack>
-      <div className="label">Đơn hàng hôm nay</div>
+      <div className="label">{label}</div>
       <NotificationsOutlined className="notifications"></NotificationsOutlined>
     </div>
   );
