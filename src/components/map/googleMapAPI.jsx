@@ -1,33 +1,22 @@
 import Skeleton from "@mui/material/Skeleton";
-import TextField from "@mui/material/TextField";
-import {
-  getProvinces,
-  getDistricts,
-  getDistrictsByProvinceCode,
-  getWardsByDistrictCode,
-} from "sub-vn";
+
 import {
   useJsApiLoader,
   GoogleMap,
   Marker,
   DirectionsRenderer,
 } from "@react-google-maps/api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./googleMapAPI.scss";
-import toast, { Toaster } from "react-hot-toast";
-import { Box, InputLabel, MenuItem, Select } from "@mui/material";
-import axios from "axios";
 
 const center = { lat: 10.02977, lng: 105.7704766 };
 
 const GoogleMapAPI = (props) => {
   const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyBNTXiG9T_XH1bAKdkCFRna61AJAK0Bn-I",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
     libraries: libraries,
-  });
-  const [error, setError] = useState(false);
-  // eslint-disable-next-line no-unused-vars
+  }); // eslint-disable-next-line no-unused-vars
   const [map, setMap] = useState(null);
   const [directionsResponse, setDirectionsResponse] = useState(null);
 
@@ -40,8 +29,9 @@ const GoogleMapAPI = (props) => {
     );
   }
 
-  const calculateRoute = async () => {
-    const destiantion = `${values.village} ${values.ward} ${values.district} ${values.province}`;
+  async function calculateRoute() {
+    const destiantion =
+      "22 Nguyễn Việt Hồng, Phường An Phú, Quận Ninh Kiều, Thành phố Cần Thơ";
 
     if (destiantion === "") {
       return;
@@ -55,33 +45,10 @@ const GoogleMapAPI = (props) => {
       travelMode: google.maps.TravelMode.DRIVING,
     });
 
-    const address = destiantion;
-    let fee;
-    if (values.province === "Thành phố Cần Thơ") {
-      if (weight < 3) {
-        fee = deliveryType.price_inner;
-      } else {
-        fee = (weight - 3) * deliveryType.overpriced + deliveryType.price_inner;
-      }
-    } else {
-      if (weight < 3) {
-        fee = deliveryType.price_outer;
-      } else {
-        fee = (weight - 3) * deliveryType.overpriced + deliveryType.price_outer;
-      }
-    }
-    const longitude = results.routes[0].legs[0].end_location.lng();
-    const latitude = results.routes[0].legs[0].end_location.lat();
-
     setDirectionsResponse(results);
-    setDistance(results.routes[0].legs[0].distance.text);
-    setTranporstFee(fee);
-    setDuration(results.routes[0].legs[0].duration.text);
-    setAddress(address);
-    setFee(fee);
-    setLongitude(longitude);
-    setLatitude(latitude);
-  };
+  }
+
+  calculateRoute();
 
   return (
     <div className="mapContainer">
