@@ -18,6 +18,37 @@
         font-weight: bold;
     }   
 
+    img {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        margin-right: 20px;
+
+        // &:hover + .sub-element {
+        //     display: block;
+        // }
+    }
+
+    .sub-element {
+        position: absolute;
+        width: 120px;
+        height: 60px;
+        background: #fff;
+        top: 60px;
+        right: 4px;
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+        z-index: 100;
+        p {
+            padding: 15px;
+
+            &:hover {
+                color: rgb(29, 7, 7);
+                cursor: pointer;
+            }
+        }
+    }
+
     .notifications {
         width: 15%;
     }

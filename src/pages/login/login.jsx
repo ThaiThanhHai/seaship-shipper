@@ -6,11 +6,11 @@ import "./login.scss";
 const Login = () => {
   const navigate = useNavigate();
   const handleSignIn = () => {
-    navigate("/login/signin");
+    navigate("/login");
   };
 
   const handleSignUp = () => {
-    navigate("/login/signup");
+    navigate("/logout");
   };
   return (
     <div className="login">

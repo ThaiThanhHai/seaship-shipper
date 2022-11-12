@@ -2,32 +2,39 @@
     display: flex;
     align-items: center;
     justify-content: center;    
-    width: 390px;
-    height: 844px;
+    width: 410px;
+    height: 700px;
     flex-direction: column;
     .top {
         width: 100%;
-        height: 70%;
+        height: 90%;
         position: relative;
         text-align: center;
         img {
-            width: 100%;
-            height: 100%;
+            width: 80%;
+            height: 80%;
         }
-        .input {
-            width: 90%;
-            margin-bottom: 20px;
+        .form-input {
+            width: 100%;
+            .input {
+                width: 90%;
+                margin-bottom: 20px;
+            }
+            .radio {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
         }
     }
 
     .bottom {
         width: 100%;
-        height: 30%;
+        height: 10%;
         display: flex;
         align-items: center;
         justify-content: flex-start;
         flex-direction: column;
-        padding-top: 40px;
 
         .btn-login {
             background-color: #007041;
@@ -45,7 +52,6 @@
             height: 50px;
             border-radius: 30px;
             font-size: 20px;
-            margin-top: 20px;
         }
     }
 }

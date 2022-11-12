@@ -11,7 +11,7 @@ import "./googleMapAPI.scss";
 
 const center = { lat: 10.02977, lng: 105.7704766 };
 
-const GoogleMapAPI = (props) => {
+const GoogleMapAPI = ({ destiantion }) => {
   const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY,
@@ -30,17 +30,16 @@ const GoogleMapAPI = (props) => {
   }
 
   async function calculateRoute() {
-    const destiantion =
-      "22 Nguyễn Việt Hồng, Phường An Phú, Quận Ninh Kiều, Thành phố Cần Thơ";
+    const destiantionRef = destiantion;
 
-    if (destiantion === "") {
+    if (destiantionRef === "") {
       return;
     }
     // eslint-disable-next-line no-undef
     const directionsService = new google.maps.DirectionsService();
     const results = await directionsService.route({
       origin: originRef,
-      destination: destiantion,
+      destination: destiantionRef,
       // eslint-disable-next-line no-undef
       travelMode: google.maps.TravelMode.DRIVING,
     });
