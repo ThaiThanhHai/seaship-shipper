@@ -62,7 +62,7 @@ const Detail = () => {
           </div>
           <div className="label">
             <p className="left">Khooảng cách</p>
-            <p className="right">{data && data.distance} km</p>
+            <p className="right">{data && data.distance / 1000} km</p>
           </div>
           <div className="label">
             <p className="left">Dịch vụ</p>
