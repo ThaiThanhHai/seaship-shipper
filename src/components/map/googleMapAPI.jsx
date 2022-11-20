@@ -40,6 +40,7 @@ const GoogleMapAPI = ({ destiantion }) => {
     const results = await directionsService.route({
       origin: originRef,
       destination: destiantionRef,
+
       // eslint-disable-next-line no-undef
       travelMode: google.maps.TravelMode.DRIVING,
     });

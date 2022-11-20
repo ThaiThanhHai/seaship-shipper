@@ -52,7 +52,7 @@ const Detail = () => {
   };
   return (
     <div className="order-detail">
-      <Navbar label={"Chi tiết đơn hàng"} />
+      <Navbar label={"Chi tiết đơn hàng"} direct={"/order"} />
       <div className="detail">
         <div className="top">
           <div className="order-name">{data && data.name}</div>

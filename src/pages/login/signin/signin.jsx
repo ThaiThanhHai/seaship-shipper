@@ -16,7 +16,7 @@ const Signin = () => {
       const res = await axios.post("http://localhost:3000/api/v1/login", data);
       if (res) {
         localStorage.setItem("shipper", JSON.stringify(res.data));
-        navigate(`/order`);
+        navigate(`/route`);
       }
     } catch (error) {
       toast.error("Số điện thoại chưa được đăng ký");

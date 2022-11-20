@@ -1,9 +1,10 @@
-import { List } from "@mui/material";
+import ListItem from "@mui/material/ListItem";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Empty from "../../components/empty/Empty";
 import Item from "../../components/item/Item";
 import Navbar from "../../components/navbar/navbar";
+import Navigation from "../../components/navigation/Navigation";
 import "./order.scss";
 
 const Order = () => {
@@ -36,8 +37,8 @@ const Order = () => {
   }, [shipper.id]);
   return (
     <div className="order">
-      <Navbar label={"Đơn hàng hôm nay"} />
-      <List>
+      <Navbar label={"Đơn hàng hôm nay"} direct={"/"} />
+      <ListItem>
         <div className="list-order">
           {!data.length ? (
             <Empty />
@@ -47,7 +48,8 @@ const Order = () => {
             })
           )}
         </div>
-      </List>
+      </ListItem>
+      <Navigation />
     </div>
   );
 };
