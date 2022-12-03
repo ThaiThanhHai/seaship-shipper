@@ -9,7 +9,9 @@ import { useNavigate } from "react-router-dom";
 
 const Navigation = () => {
   const navigate = useNavigate();
-  const [value, setValue] = React.useState(0);
+  const url = window.location.href
+  const navDefault = url.split('/')[3];
+  const [value, setValue] = React.useState(navDefault);
 
   return (
     <Box
@@ -17,6 +19,7 @@ const Navigation = () => {
         width: 390,
         position: "absolute",
         bottom: 0,
+        left: 0,
         borderRadius: "10px",
         boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
       }}
@@ -29,7 +32,8 @@ const Navigation = () => {
         }}
       >
         <BottomNavigationAction
-          label="Tuyến đường"
+          label="Lộ trình"
+          value="route"
           icon={<LocationOnIcon />}
           onClick={() => {
             navigate("/route");
@@ -37,6 +41,7 @@ const Navigation = () => {
         />
         <BottomNavigationAction
           label="Đơn hàng"
+          value="order"
           icon={<LocalShipping />}
           onClick={() => {
             navigate("/order");
@@ -44,6 +49,7 @@ const Navigation = () => {
         />
         <BottomNavigationAction
           label="Lịch sử"
+          value="history"
           icon={<RestoreIcon />}
           onClick={() => {
             navigate("/history");
@@ -52,6 +58,7 @@ const Navigation = () => {
         <BottomNavigationAction
           label="Thông tin"
           icon={<AccountCircleOutlined />}
+          value="account"
           onClick={() => {
             navigate("/account");
           }}

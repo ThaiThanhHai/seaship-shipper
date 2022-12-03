@@ -1,0 +1,63 @@
+.cargoItem {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 375px;
+    height:100px;
+    .index {
+        width: 22%;
+        height:100px;
+        position: relative;
+        .span {
+            width: 40px;
+            height: 40px;
+            font-weight: 500;
+            border-radius: 10px;
+            border: 1px solid #007041;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+        }
+        .crossbar {
+            position: absolute;
+            top: 20px;
+            left: 42px;
+            width: 40px;
+            height: 4px;
+            background-color: #007041;
+        }
+        .horizon {
+            position: absolute;
+            top: 42px;
+            left: 20px;
+            width: 4px;
+            height: 60px;
+            background-color: #007041;
+        }
+
+    }
+    .info {
+        width: 70%;
+        height: 80px;
+        border: 1px solid #007041;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+        border-radius: 10px;
+        .code {
+            font-size: 16px;
+            font-weight: bold;
+            padding: 5px 5px 0px 5px;
+        }
+        .address {
+            font-size: 12px;
+            padding: 5px 5px 0px 5px;
+        }
+        .btn-view {
+            height: 30px;
+            width: 40px;
+            float: right;
+        }
+    }
+
+
+}
