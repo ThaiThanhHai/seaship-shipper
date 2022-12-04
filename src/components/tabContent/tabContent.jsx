@@ -5,6 +5,17 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { List, Paper } from "@mui/material";
+import { useState } from "react";
+import {
+  DepartureBoard,
+  RestartAlt,
+  SportsScore,
+  TurnLeft,
+  TurnRight,
+  TurnSlightLeft,
+  TurnSlightRight,
+} from "@mui/icons-material";
+import { round } from "lodash";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -39,15 +50,59 @@ function a11yProps(index) {
   };
 }
 
-export default function TabContent({ data, coordinates }) {
-  console.log(coordinates);
-  const [value, setValue] = React.useState(0);
+export default function TabContent({ data, steps }) {
+  const [value, setValue] = useState(0);
 
+  const modifier =
+    steps &&
+    steps.map((step, index) => {
+      if (index === 0) return "depart";
+      if (index === steps.length - 1) return "destination";
+      return step.maneuver.modifier;
+    });
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const handleDisplayIcon = (modifier) => {
+    let icon;
+    switch (modifier) {
+      case "depart":
+        icon = <DepartureBoard />;
+        break;
+      case "left":
+        icon = <TurnLeft />;
+        break;
+      case "slight left":
+        icon = <TurnSlightLeft />;
+        break;
+      case "right":
+        icon = <TurnRight />;
+        break;
+      case "slight right":
+        icon = <TurnSlightRight />;
+        break;
+      case "destination":
+        icon = <SportsScore />;
+        break;
+      default:
+        icon = <RestartAlt />;
+    }
+    return icon;
+  };
+
+  const handleDistance = (distance) => {
+    if (distance >= 1000) {
+      const convert = round(distance / 1000, 1);
+      return `${convert} km`;
+    }
+
+    const convert = round(distance, 1)
+    return `${convert} m`;
+  };
+
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%", marginLeft: "10px", marginTop: "-10px" }}>
       <Box
         sx={{
           borderBottom: 1,
@@ -67,20 +122,27 @@ export default function TabContent({ data, coordinates }) {
         </Tabs>
       </Box>
       <TabPanel value={value} index={1}>
-        <Paper style={{ maxHeight: 250, width: 388, overflow: "auto" }}>
+        <Paper style={{ maxHeight: 270, width: 365, overflow: "auto" }}>
           <List>
-            <p>Item</p>
-            <p>Item</p>
-            <p>Item</p>
-            <p>Item</p>
-            <p>Item</p>
-            <p>Item</p>
-            <p>Item</p>
-            <p>Item</p>
-            <p>Item</p>
-            <p>Item</p>
-            <p>Item</p>
-            <p>Item</p>
+            <div className="instruction">
+              {steps &&
+                steps.map((step, index) => {
+                  return (
+                    <div className="guied">
+                      <div className="draw">
+                        <div className="before">
+                          {handleDisplayIcon(modifier[index])}
+                        </div>
+                        <div className="after"></div>
+                      </div>
+                      <div className="label">
+                        <p>{step.maneuver.instruction}</p>
+                        <p>{handleDistance(step.distance)}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
           </List>
         </Paper>
       </TabPanel>
@@ -89,19 +151,23 @@ export default function TabContent({ data, coordinates }) {
         <div>
           <div className="label">
             <p className="left">Người nhận</p>
-            <p className="right">{data && data.receiver}</p>
+            <p className="right">Mohamed Salah</p>
+            {/* <p className="right">{data && data.receiver}</p> */}
           </div>
           <div className="label">
             <p className="left">SĐT</p>
-            <p className="right">{data && data.phone}</p>
+            {/* <p className="right">{data && data.phone}</p> */}
+            <p className="right">0332395109</p>
           </div>
           <div className="label">
             <p className="left">Phí ship</p>
-            <p className="right">{data && data.shipping_fee} VNĐ</p>
+            {/* <p className="right">{data && data.shipping_fee} VNĐ</p> */}
+            <p className="right">15000 VNĐ</p>
           </div>
-          <div className="address">
-            <p className="title">Địa chỉ</p>
-            <p className="name">{data && data.address}</p>
+          <div className="label">
+            <p className="left">Địa chỉ</p>
+            {/* <p className="right">{data && data.address}</p> */}
+            <p className="right">158 Hẻm liên tổ 12-20, Nguyễn Văn Cừ, An Khánh, Ninh Kiều, Cần Thơ</p>
           </div>
         </div>
       </TabPanel>

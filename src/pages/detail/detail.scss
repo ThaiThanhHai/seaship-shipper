@@ -59,6 +59,40 @@
                     padding: 0px 10px 10px 10px;
                 }
             }
+            .instruction {
+                .guied {
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    padding: 10px;
+                    .draw {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-direction: column;
+                        .before{
+                            color: #333;
+                        }
+
+                        .after {
+                            width: 2px;
+                            height: 40px;
+                            border-right: 2px dotted #333;
+                        }
+                    }
+                    .label {
+                        margin-top: -10px;
+                        height: 60px;
+                        width: 314px;
+                        font-size: 14px;
+                        color: #666;
+                        display: flex;
+                        align-items: flex-start;
+                        justify-content: flex-start;
+                        flex-direction: column;
+                    }
+                }
+            }
         }
         .map {
             width: 100%;
@@ -67,7 +101,7 @@
 
         .bottom {
             width: 100%;
-            height: 10%;
+            height: 8%;
             display: flex;
             align-items: center;
             justify-content: space-around;

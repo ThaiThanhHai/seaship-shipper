@@ -4,7 +4,7 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import RestoreIcon from "@mui/icons-material/Restore";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import { AccountCircleOutlined, LocalShipping } from "@mui/icons-material";
+import { AccountCircleOutlined, Assessment, LocalShipping } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 const Navigation = () => {
@@ -48,19 +48,19 @@ const Navigation = () => {
           }}
         />
         <BottomNavigationAction
-          label="Lịch sử"
-          value="history"
-          icon={<RestoreIcon />}
+          label="Thống kê"
+          value="statistic"
+          icon={<Assessment />}
           onClick={() => {
-            navigate("/history");
+            navigate("/statistic");
           }}
         />
         <BottomNavigationAction
-          label="Thông tin"
-          icon={<AccountCircleOutlined />}
-          value="account"
+          label="Lịch sử"
+          icon={<RestoreIcon />}
+          value="history"
           onClick={() => {
-            navigate("/account");
+            navigate("/history");
           }}
         />
       </BottomNavigation>

@@ -8,38 +8,46 @@ import { toast, Toaster } from "react-hot-toast";
 import Mapbox from "../../components/map/mapbox";
 import Navigation from "../../components/navigation/Navigation";
 import TabContent from "../../components/tabContent/tabContent";
+import ModalFailure from "../../components/modal/modal";
 
 const Detail = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState({});
+  const [open, setOpen] = useState(false);
 
-  const address = [{ lng: 105.7875219,lat: 10.0364216}, { lng: 106.339785, lat: 9.935583}]
-  const [coordinates, setCoordinates] = useState([[105.787629, 10.036513]])
-  const [waypoints, setWaypoints] = useState([])
+  const address = [
+    { lng: 105.7875219, lat: 10.0364216 },
+    { lng: 106.339785, lat: 9.935583 },
+  ];
+  const [coordinates, setCoordinates] = useState([[105.787629, 10.036513]]);
+  const [waypoints, setWaypoints] = useState([]);
+  const [steps, setSteps] = useState([]);
 
   const pasreEncodeURI = (address) => {
     const newAddress = address.map((data) => {
-      return `${data.lng}%2C${data.lat}`
-    })
-    return newAddress.join('%3B')
-  }
+      return `${data.lng}%2C${data.lat}`;
+    });
+    return newAddress.join("%3B");
+  };
 
   const getDirections = async () => {
     try {
-      const coordinates = pasreEncodeURI(address)
-      const result = await axios.get(`https://api.mapbox.com/directions/v5/mapbox/driving-traffic/${coordinates}?alternatives=false&geometries=geojson&language=vn&overview=simplified&steps=true&access_token=pk.eyJ1IjoidGhhaXRoYW5oaGFpIiwiYSI6ImNsOGVwZ2s0bjBpdWQzdnA5c3U5NmVoM3IifQ.h7reW0CjFKe-waithRjc0g`)
-      setWaypoints(result.data.waypoints)
-      console.log(result.data.routes[0])
-      setCoordinates(result.data.routes[0].geometry.coordinates)
+      const coordinates = pasreEncodeURI(address);
+      const result = await axios.get(
+        `https://api.mapbox.com/directions/v5/mapbox/driving-traffic/${coordinates}?alternatives=false&geometries=geojson&language=vn&overview=simplified&steps=true&access_token=pk.eyJ1IjoidGhhaXRoYW5oaGFpIiwiYSI6ImNsOGVwZ2s0bjBpdWQzdnA5c3U5NmVoM3IifQ.h7reW0CjFKe-waithRjc0g`
+      );
+      setWaypoints(result.data.waypoints);
+      setSteps(result.data.routes[0].legs[0].steps);
+      setCoordinates(result.data.routes[0].geometry.coordinates);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
   useEffect(() => {
-    getDirections()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    getDirections();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getOrderDetail = async (id) => {
     try {
@@ -73,9 +81,6 @@ const Detail = () => {
     }
   };
 
-  const handleSubmitError = () => {
-    handleUpdateStatus(params.id, { status: "error" });
-  };
   const handleSubmitFinish = () => {
     handleUpdateStatus(params.id, { status: "finished" });
   };
@@ -84,39 +89,38 @@ const Detail = () => {
       <Navbar label={"Chi tiết đơn hàng"} direct={"/order"} />
       <div className="detail">
         <div className="map">
-          <Mapbox coordinates={coordinates} waypoints={waypoints}/>
+          <Mapbox coordinates={coordinates} waypoints={waypoints} />
         </div>
         <div className="top">
-          <TabContent data={data} coordinates={coordinates}/>
-          {/* <div className="order-name">{data && data.name}</div>
-          <div className="label">
-            <p className="left">Phí ship</p>
-            <p className="right">{data && data.shipping_fee} VNĐ</p>
-          </div>
-          <div className="label">
-            <p className="left">Khoảng cách</p>
-            <p className="right">{data && data.distance / 1000} km</p>
-          </div>
-          <div className="label">
-            <p className="left">Dịch vụ</p>
-            <p className="right">{data && data.delivery_type}</p>
-          </div>
-          <div className="address">
-            <p className="title">Địa chỉ</p>
-            <p className="name">{data && data.address}</p>
-          </div> */}
+          <TabContent data={data} steps={steps} />
         </div>
         <div className="bottom">
           <Button
             variant="contained"
-            sx={{ width: 150, color: "white", background: "red" }}
-            onClick={handleSubmitError}
+            sx={{
+              width: 130,
+              color: "white",
+              background: "red",
+              "&:hover": {
+                cursor: "pointer",
+                backgroundColor: "red",
+              },
+            }}
+            onClick={() => { setOpen(true)}}
           >
             Thất bại
           </Button>
           <Button
             variant="contained"
-            sx={{ width: 150, color: "white", background: "green" }}
+            sx={{
+              width: 130,
+              color: "white",
+              background: "green",
+              "&:hover": {
+                cursor: "pointer",
+                backgroundColor: "green",
+              },
+            }}
             onClick={handleSubmitFinish}
           >
             Thành công
@@ -130,6 +134,7 @@ const Detail = () => {
           }}
         />
       </div>
+      {open && <ModalFailure open={open} setOpen={setOpen}/>}
       <Navigation />
     </div>
   );

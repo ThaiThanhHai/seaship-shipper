@@ -7,6 +7,7 @@ import Signin from "./pages/login/signin/signin";
 import Signup from "./pages/login/signup/signup";
 import Order from "./pages/order/Order";
 import Routing from "./pages/routing/Routing";
+import Statistic from "./pages/statistic/Statistic";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="login" element={<Signin />} />
           <Route path="logout" element={<Signup />} />
           <Route path="route" element={<Routing />} />
+          <Route path="statistic" element={<Statistic />} />
           <Route path="history" element={<History />} />
           <Route path="account" element={<Account />} />
           <Route path="order/*">
