@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Account from "./components/account/Account";
 import Detail from "./pages/detail/Detail";
 import History from "./pages/history/History";
 import Login from "./pages/login/login";
@@ -20,7 +19,6 @@ function App() {
           <Route path="route" element={<Routing />} />
           <Route path="statistic" element={<Statistic />} />
           <Route path="history" element={<History />} />
-          <Route path="account" element={<Account />} />
           <Route path="order/*">
             <Route index element={<Order />} />
             <Route path=":id" element={<Detail />} />

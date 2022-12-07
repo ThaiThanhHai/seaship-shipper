@@ -24,13 +24,7 @@ const Navbar = ({ label, direct }) => {
         }}
       ></ArrowBack>
       <div className="label">{label}</div>
-      <img
-        src={initialValue.avatar}
-        alt="avatar"
-        onClick={() => {
-          navigate("/account");
-        }}
-      />
+      <img src={initialValue.avatar} alt="avatar" />
     </div>
   );
 };

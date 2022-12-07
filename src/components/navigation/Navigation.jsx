@@ -4,13 +4,13 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import RestoreIcon from "@mui/icons-material/Restore";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import { AccountCircleOutlined, Assessment, LocalShipping } from "@mui/icons-material";
+import { Assessment, LocalShipping } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 const Navigation = () => {
   const navigate = useNavigate();
-  const url = window.location.href
-  const navDefault = url.split('/')[3];
+  const url = window.location.href;
+  const navDefault = url.split("/")[3];
   const [value, setValue] = React.useState(navDefault);
 
   return (
