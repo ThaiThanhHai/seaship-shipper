@@ -47,7 +47,7 @@ export default function ModalFail({ open, setOpen, id }) {
   };
 
   const handleClick = () => {
-    handleUpdateStatus(id, { status: "finished", failure_reason: failureReason  });
+    handleUpdateStatus(id, { status: "error", failure_reason: failureReason  });
   };
 
 

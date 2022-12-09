@@ -4,30 +4,31 @@ import { Pie } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const data = {
-  labels: ['thất bại', 'đang giao', 'đã giao'],
-  datasets: [
-    {
-      label: 'Đơn hàng',
-      data: [5, 3, 20],
-      backgroundColor: [
-        '#FF0033',
-        '#33FFFF',
-        '#33CC99',
-      ],
-      borderColor: [
-        '#FF0033',
-        '#33FFFF',
-        '#33CC99',
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
 
 
-const Chart = () => {
-  return <Pie data={data}/>;
+
+const Chart = ({data}) => {
+  const value = {
+    labels: ['thất bại', 'đang giao', 'đã giao'],
+    datasets: [
+      {
+        label: 'Đơn hàng',
+        data: [data.count_error, data.count_delivering, data.count_finised],
+        backgroundColor: [
+          '#FF0033',
+          '#33FFFF',
+          '#33CC99',
+        ],
+        borderColor: [
+          '#FF0033',
+          '#33FFFF',
+          '#33CC99',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+  return <Pie data={value}/>;
 }
 
 export default Chart;

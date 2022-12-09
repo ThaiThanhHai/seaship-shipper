@@ -27,7 +27,6 @@ const Detail = () => {
   const [currentLocate, setCurrentLocate] = useState(null);
 
   const address = [currentLocate, data.coordinate];
-
   const [coordinates, setCoordinates] = useState([[105.787629, 10.036513]]);
   const [waypoints, setWaypoints] = useState([]);
   const [steps, setSteps] = useState([]);
@@ -148,7 +147,6 @@ const Detail = () => {
           id={params.id}
         />
       )}
-
       <Navigation />
     </div>
   );

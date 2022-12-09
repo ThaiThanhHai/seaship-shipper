@@ -5,6 +5,24 @@
   flex-direction: column;
   width: 375px;
   height: 700px;
+
+  .empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+    flex-direction: column;
+
+    img {
+      width: 200px;
+      height: 200px;
+    }
+    span {
+      margin-top: 20px;
+      font-weight: 200;
+    }
+  }
   .content {
     display: flex;
     align-items: center;
