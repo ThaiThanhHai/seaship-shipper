@@ -97,7 +97,7 @@ export default function TabContent({ data, steps }) {
       return `${convert} km`;
     }
 
-    const convert = round(distance, 1)
+    const convert = round(distance, 1);
     return `${convert} m`;
   };
 
@@ -147,27 +147,23 @@ export default function TabContent({ data, steps }) {
         </Paper>
       </TabPanel>
       <TabPanel value={value} index={0}>
-        <div className="order-name">Đơn hàng 001</div>
+        <div className="order-name">{data.order_name}</div>
         <div>
           <div className="label">
             <p className="left">Người nhận</p>
-            <p className="right">Mohamed Salah</p>
-            {/* <p className="right">{data && data.receiver}</p> */}
+            <p className="right">{data.receiver_name}</p>
           </div>
           <div className="label">
             <p className="left">SĐT</p>
-            {/* <p className="right">{data && data.phone}</p> */}
-            <p className="right">0332395109</p>
+            <p className="right">{data.phone}</p>
           </div>
           <div className="label">
             <p className="left">Phí ship</p>
-            {/* <p className="right">{data && data.shipping_fee} VNĐ</p> */}
-            <p className="right">15000 VNĐ</p>
+            <p className="right">{data.shipping_fee} VNĐ</p>
           </div>
           <div className="label">
             <p className="left">Địa chỉ</p>
-            {/* <p className="right">{data && data.address}</p> */}
-            <p className="right">158 Hẻm liên tổ 12-20, Nguyễn Văn Cừ, An Khánh, Ninh Kiều, Cần Thơ</p>
+            <p className="right">{data.address}</p>
           </div>
         </div>
       </TabPanel>

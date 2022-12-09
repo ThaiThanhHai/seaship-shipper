@@ -3,23 +3,31 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/navbar";
 import "./detail.scss";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast, Toaster } from "react-hot-toast";
+import {  useParams } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import Mapbox from "../../components/map/mapbox";
 import Navigation from "../../components/navigation/Navigation";
 import TabContent from "../../components/tabContent/tabContent";
-import ModalFailure from "../../components/modal/modal";
+import ModalFail from "../../components/modal/modalFail";
+import ModalSuccess from "../../components/modal/modalSuccess";
 
 const Detail = () => {
   const params = useParams();
-  const navigate = useNavigate();
+  const getStorageValue = (key, defaultValue) => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("shipper");
+      const initial = saved !== null ? JSON.parse(saved) : "";
+      return initial;
+    }
+  };
+  const initialValue = getStorageValue("shipper", "");
   const [data, setData] = useState({});
-  const [open, setOpen] = useState(false);
+  const [openModalFail, setOpenModalFail] = useState(false);
+  const [openModalSuccess, setOpenModalSuccess] = useState(false);
+  const [currentLocate, setCurrentLocate] = useState(null);
 
-  const address = [
-    { lng: 105.7875219, lat: 10.0364216 },
-    { lng: 106.339785, lat: 9.935583 },
-  ];
+  const address = [currentLocate, data.coordinate];
+
   const [coordinates, setCoordinates] = useState([[105.787629, 10.036513]]);
   const [waypoints, setWaypoints] = useState([]);
   const [steps, setSteps] = useState([]);
@@ -47,12 +55,19 @@ const Detail = () => {
   useEffect(() => {
     getDirections();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [data]);
 
-  const getOrderDetail = async (id) => {
+  navigator.geolocation.getCurrentPosition((position) => {
+    setCurrentLocate({
+      lng: position.coords.longitude,
+      lat: position.coords.latitude,
+    });
+  });
+
+  const getOrderDetail = async (shipper_id, order_id) => {
     try {
       const result = await axios.get(
-        `http://localhost:3000/api/v1/deliveries/order/${id}`
+        `http://localhost:3000/api/v1/shippers/${shipper_id}/order/${order_id}`
       );
       if (result.data) {
         setData(result.data);
@@ -62,28 +77,15 @@ const Detail = () => {
     }
   };
   useEffect(() => {
-    getOrderDetail(params.id);
-  }, [params.id]);
+    getOrderDetail(initialValue.id, params.id);
+  }, [initialValue.id, params.id]);
 
-  const handleUpdateStatus = async (id, status) => {
-    try {
-      const result = await axios.put(
-        `http://localhost:3000/api/v1/deliveries/order/${id}`,
-        status
-      );
-      if (result.data) {
-        toast.success("Cập nhật đơn hàng thành công");
-        navigate("/order");
-      }
-    } catch (error) {
-      toast.error("Có lỗi xảy ra vui lòng thử lại");
-      console.error(error);
-    }
-  };
+
 
   const handleSubmitFinish = () => {
-    handleUpdateStatus(params.id, { status: "finished" });
+    setOpenModalSuccess(true);
   };
+
   return (
     <div className="order-detail">
       <Navbar label={"Chi tiết đơn hàng"} direct={"/order"} />
@@ -92,7 +94,7 @@ const Detail = () => {
           <Mapbox coordinates={coordinates} waypoints={waypoints} />
         </div>
         <div className="top">
-          <TabContent data={data} steps={steps} />
+          <TabContent data={data && data} steps={steps} />
         </div>
         <div className="bottom">
           <Button
@@ -106,7 +108,9 @@ const Detail = () => {
                 backgroundColor: "red",
               },
             }}
-            onClick={() => { setOpen(true)}}
+            onClick={() => {
+              setOpenModalFail(true);
+            }}
           >
             Thất bại
           </Button>
@@ -134,7 +138,17 @@ const Detail = () => {
           }}
         />
       </div>
-      {open && <ModalFailure open={open} setOpen={setOpen}/>}
+      {openModalFail && (
+        <ModalFail open={openModalFail} setOpen={setOpenModalFail} id={params.id} />
+      )}
+      {openModalSuccess && (
+        <ModalSuccess
+          open={openModalSuccess}
+          setOpen={setOpenModalSuccess}
+          id={params.id}
+        />
+      )}
+
       <Navigation />
     </div>
   );

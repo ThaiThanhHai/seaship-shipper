@@ -4,6 +4,9 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { TextareaAutosize } from "@mui/material";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -17,19 +20,42 @@ const style = {
   borderRadius: 4,
 };
 
-export default function ModalFailure({ open, setOpen  }) {
+export default function ModalFail({ open, setOpen, id }) {
+  const navigate = useNavigate();
   const handleClose = () => setOpen(false);
-  const [failureReason, setFailureReason] = React.useState('');
+  const [failureReason, setFailureReason] = React.useState("");
 
-const handleChange = () => (event) => {
-  setFailureReason(event.target.value)
-}
+  const handleChange = () => (event) => {
+    setFailureReason(event.target.value);
+  };
 
-console.log(failureReason)
-const handleClick = () => {
-  console.log(failureReason)
-  setOpen(false)
-}
+  const handleUpdateStatus = async (id, status) => {
+    try {
+      const result = await axios.put(
+        `http://localhost:3000/api/v1/deliveries/order/${id}`,
+        status
+      );
+      if (result.data) {
+        toast.success("Cập nhật đơn hàng thành công");
+        setOpen(false)
+        navigate("/order");
+      }
+    } catch (error) {
+      toast.error("Có lỗi xảy ra vui lòng thử lại");
+      console.error(error);
+    }
+  };
+
+  const handleClick = () => {
+    handleUpdateStatus(id, { status: "finished", failure_reason: failureReason  });
+  };
+
+
+
+  const handleCancel = () => {
+    setOpen(false)
+  }
+
   return (
     <div>
       <Modal
@@ -50,7 +76,10 @@ const handleClick = () => {
               style={{ width: 300, height: 100, padding: 5 }}
               onChange={handleChange()}
             />
-            <Button sx={{ float: "right" }} onClick={handleClick}>Xác nhận</Button>
+            <Button sx={{ float: "right" }} onClick={handleClick}>
+              Xác nhận
+            </Button>
+            <Button sx={{ float: "right" }} onClick={handleCancel}>Hủy</Button>
           </Typography>
         </Box>
       </Modal>

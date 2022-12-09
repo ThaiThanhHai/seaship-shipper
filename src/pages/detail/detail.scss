@@ -1,5 +1,5 @@
 .order-detail {
-    width: 375px;
+    width: 360px;
     height: 700px;
     .detail {
         width: 100%;
@@ -65,6 +65,7 @@
                     align-items: flex-start;
                     justify-content: flex-start;
                     padding: 10px;
+                    margin-left: 20px;
                     .draw {
                         display: flex;
                         align-items: center;
@@ -73,16 +74,15 @@
                         .before{
                             color: #333;
                         }
-
                         .after {
                             width: 2px;
-                            height: 40px;
+                            height: 30px;
                             border-right: 2px dotted #333;
                         }
                     }
                     .label {
                         margin-top: -10px;
-                        height: 60px;
+                        height: 40px;
                         width: 314px;
                         font-size: 14px;
                         color: #666;
@@ -97,6 +97,22 @@
         .map {
             width: 100%;
             height: 45%;
+
+            .marker {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                border: 2px solid #007041;
+                background: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                span {
+                    color: #000;
+                    font-weight: bold;
+                }
+            }
         }
 
         .bottom {
