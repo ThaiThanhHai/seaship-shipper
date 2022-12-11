@@ -1,5 +1,4 @@
 import axios from "axios";
-import { round } from "lodash";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import MapboxList from "../../components/map/mapboxList";
@@ -38,6 +37,7 @@ const Routing = () => {
     getRoutingData(initialValue.id)
   }, [initialValue.id])
 
+  console.log(value)
 
   return (
     <div className="routing">
@@ -46,9 +46,9 @@ const Routing = () => {
           <MapboxList address={value && value.coordinates}/>
         </div>
         <div className="content">
-            <Widget title="Số lượng đơn hàng" number={value ? value.total_order : 0} />
-            <Widget title="Tổng quãng đường (km)" number={value ? value.total_distance : 0} />
-            <Widget title="Khối lượng vận chuyển (kg)" number={value ? round(value.total_weight, 0) : 0} />
+            <Widget title="Số lượng đơn hàng" number={value.total_order ? value.total_order : 0} />
+            <Widget title="Tổng quãng đường (km)" number={value.total_order ? value.total_distance : 0} />
+            <Widget title="Khối lượng vận chuyển (kg)" number={value.total_weight ? value.total_weight : 0} />
         </div>
       <Navigation />
     </div>

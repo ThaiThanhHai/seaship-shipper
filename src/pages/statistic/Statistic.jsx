@@ -46,7 +46,7 @@ const Statistic = () => {
           </div>
           <div className="item">
             <div className="label">Khối lượng vận chuyển(kg)</div>
-            <div className="count">{data.total_weight}</div>
+            <div className="count">{data.total_dimension}</div>
           </div>
           <div className="item">
             <div className="label">Quãng đường vận chuyển (km)</div>

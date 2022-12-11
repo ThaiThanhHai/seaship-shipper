@@ -5,6 +5,7 @@
   flex-direction: column;
   width: 375px;
   height: 700px;
+  max-height: 700px;
 
   .empty {
     display: flex;
@@ -29,7 +30,7 @@
     justify-content: center;
     flex-direction: column;
     width: 375px;
-    height: 700px;
+    height: 640px;
     margin-top: 10px;
 
 
