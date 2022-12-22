@@ -7,6 +7,7 @@ import Signup from "./pages/login/signup/signup";
 import Order from "./pages/order/Order";
 import Routing from "./pages/routing/Routing";
 import Statistic from "./pages/statistic/Statistic";
+import NotFound from "./components/notfound/NotFound";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route index element={<Order />} />
             <Route path=":id" element={<Detail />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>

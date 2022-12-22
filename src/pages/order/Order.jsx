@@ -8,10 +8,22 @@ import Navigation from "../../components/navigation/Navigation";
 import "./order.scss";
 import axios from "axios";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Order = () => {
-  const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    let isAuth = JSON.parse(localStorage.getItem("shipper"));
+    if (isAuth && isAuth !== null) {
+      navigate("/order");
+    } else {
+      navigate("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const [data, setData] = useState([]);
   const getStorageValue = (key, defaultValue) => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("shipper");
@@ -37,8 +49,6 @@ const Order = () => {
     getListOrder(initialValue.id);
   }, [initialValue.id]);
 
-  console.log(data)
-
   return (
     <div className="order">
       <Navbar label={"Đơn hàng hôm nay"} direct={"/"} />
@@ -48,10 +58,14 @@ const Order = () => {
             <Empty />
           ) : (
             data.map((item, index) => {
-              if (index+1 === data.length) {
-                return <CargoItem data={item} key={index} stt={index} last={false}/>;
+              if (index + 1 === data.length) {
+                return (
+                  <CargoItem data={item} key={index} stt={index} last={false} />
+                );
               }
-              return <CargoItem data={item} key={index} stt={index} last={true}/>;
+              return (
+                <CargoItem data={item} key={index} stt={index} last={true} />
+              );
             })
           )}
         </div>

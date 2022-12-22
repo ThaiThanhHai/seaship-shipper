@@ -1,9 +1,10 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import Chart from '../../components/chart/Chart'
-import Navbar from '../../components/navbar/navbar'
-import Navigation from '../../components/navigation/Navigation'
-import './statistic.scss'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Chart from "../../components/chart/Chart";
+import Navbar from "../../components/navbar/navbar";
+import Navigation from "../../components/navigation/Navigation";
+import "./statistic.scss";
 
 const Statistic = () => {
   const getStorageValue = (key, defaultValue) => {
@@ -31,39 +32,53 @@ const Statistic = () => {
     getStatistic(shipper.id);
   }, [shipper.id]);
 
-  console.log(data)
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    let isAuth = JSON.parse(localStorage.getItem("shipper"));
+    if (isAuth && isAuth !== null) {
+      navigate("/statistic");
+    } else {
+      navigate("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div className="statistic">
       <Navbar label={"Thống kê"} direct={"/"} />
-      {data.total_order !== 0 ? (<div className="content">
-        <div className="chart">
-          <Chart data={data && data}/>
+      {data.total_order !== 0 ? (
+        <div className="content">
+          <div className="chart">
+            <Chart data={data && data} />
+          </div>
+          <div className="stats">
+            <div className="item">
+              <div className="label">Số lượng vận đơn</div>
+              <div className="count">{data.total_order}</div>
+            </div>
+            <div className="item">
+              <div className="label">Khối lượng vận chuyển(kg)</div>
+              <div className="count">{data.total_dimension}</div>
+            </div>
+            <div className="item">
+              <div className="label">Quãng đường vận chuyển (km)</div>
+              <div className="count">{data.total_distance}</div>
+            </div>
+            <div className="item">
+              <div className="label">Tổng phí vận chuyển(VNĐ)</div>
+              <div className="count">{data.total_fee}</div>
+            </div>
+          </div>
         </div>
-        <div className="stats">
-          <div className="item">
-            <div className="label">Số lượng vận đơn</div>
-            <div className="count">{data.total_order}</div>
-          </div>
-          <div className="item">
-            <div className="label">Khối lượng vận chuyển(kg)</div>
-            <div className="count">{data.total_weight}</div>
-          </div>
-          <div className="item">
-            <div className="label">Quãng đường vận chuyển (km)</div>
-            <div className="count">{data.total_distance}</div>
-          </div>
-          <div className="item">
-            <div className="label">Tổng phí vận chuyển(VNĐ)</div>
-            <div className="count">{data.total_fee}</div>
-          </div>
-        </div>
-      </div>) : <div className='empty'>
-          <img src="https://i.imgur.com/O1AHsvh.png" alt="empty"/>
+      ) : (
+        <div className="empty">
+          <img src="https://i.imgur.com/O1AHsvh.png" alt="empty" />
           <span>Hiện tại không có thống kê</span>
-        </div>}
+        </div>
+      )}
       <Navigation />
     </div>
-  )
-}
+  );
+};
 
-export default Statistic
+export default Statistic;

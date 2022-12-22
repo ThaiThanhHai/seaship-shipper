@@ -38,6 +38,7 @@ const MapboxList = ({ address }) => {
     getDirections();
   }, [address]);
 
+  console.log(address);
   const dataOne = {
     type: "Feature",
     properties: {},
@@ -57,7 +58,7 @@ const MapboxList = ({ address }) => {
       style={{ width: "400px", height: "500px" }}
       mapStyle="mapbox://styles/mapbox/streets-v9"
     >
-      {waypoints &&
+      {/* {waypoints &&
         waypoints.map((waypoint, index) => {
           return (
             <Marker
@@ -71,6 +72,23 @@ const MapboxList = ({ address }) => {
               </div>
             </Marker>
           );
+        })} */}
+      {address &&
+        address.map((data, index) => {
+          if (index !== address.length - 1) {
+            return (
+              <Marker
+                key={index}
+                longitude={data.lng}
+                latitude={data.lat}
+                color="red"
+              >
+                <div className="marker">
+                  <span>{index + 1}</span>
+                </div>
+              </Marker>
+            );
+          }
         })}
       <NavigationControl position="bottom-right" />
       <GeolocateControl />

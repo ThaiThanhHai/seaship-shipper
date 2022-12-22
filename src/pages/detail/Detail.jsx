@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/navbar";
 import "./detail.scss";
 import axios from "axios";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import Mapbox from "../../components/map/mapbox";
 import Navigation from "../../components/navigation/Navigation";
@@ -11,7 +11,7 @@ import TabContent from "../../components/tabContent/tabContent";
 import ModalFail from "../../components/modal/modalFail";
 import ModalSuccess from "../../components/modal/modalSuccess";
 
-const Detail = () => {
+const Detail = ({ id }) => {
   const params = useParams();
   const getStorageValue = (key, defaultValue) => {
     if (typeof window !== "undefined") {
@@ -79,8 +79,6 @@ const Detail = () => {
     getOrderDetail(initialValue.id, params.id);
   }, [initialValue.id, params.id]);
 
-
-
   const handleSubmitFinish = () => {
     setOpenModalSuccess(true);
   };
@@ -138,7 +136,11 @@ const Detail = () => {
         />
       </div>
       {openModalFail && (
-        <ModalFail open={openModalFail} setOpen={setOpenModalFail} id={params.id} />
+        <ModalFail
+          open={openModalFail}
+          setOpen={setOpenModalFail}
+          id={params.id}
+        />
       )}
       {openModalSuccess && (
         <ModalSuccess
