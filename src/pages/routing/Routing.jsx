@@ -49,6 +49,8 @@ const Routing = () => {
     getRoutingData(initialValue.id);
   }, [initialValue.id]);
 
+  console.log(value);
+
   return (
     <div className="routing">
       <Navbar label={"Tuyến đường giao hàng"} direct={"/"} />
